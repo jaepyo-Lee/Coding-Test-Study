@@ -4,57 +4,32 @@
 using namespace std;
 
 /*
- * 백트래킹으로 해결!! -> 중복조합
+* 풀이여부: 실패
+* dfs 사용
 */
 
 string alphabets = "AEIOU";
-string newWord;
 string ansWord;
-bool isDone = false;
-int ans = 0;
+int tmp;
 
-void backtracking(int depth) {
-    if (depth == 5) {
-        if (newWord == ansWord) {
-            isDone = true;
-        }
-        return;
-    }
-
+void dfs(string word, int depth) {
+    if (depth == 5) return;
+    
     for (int i = 0; i < 5; i++) {
         ansWord += alphabets[i];
-
-        backtracking(depth + 1);
-        ansWord.erase(ansWord.end() - 1);
-        if (isDone) {
-            return;
-        }
+        tmp++;
+        if (ansWord.compare(word) == 0) return;
+        dfs(word, depth + 1);
+        if (ansWord.compare(word) == 0) return;
+        ansWord.pop_back();
     }
 }
 
-
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0); cout.tie(0);
-
-    string word;
-    cin >> word;
-
+int solution(string word) {
     int answer = 0;
-    newWord = word;
-    int sz = word.size();
-
-    if (sz < 5) {
-        for (int i = 0; i < 5 - sz; i++) {
-            newWord += 'X';
-        }
-    }
-
-    backtracking(0);
-    answer = ans;
-
-    cout << answer;
-    cout << newWord;
-
-    return 0;
+    
+    dfs(word, 0);
+    answer = tmp;
+    
+    return answer;
 }
