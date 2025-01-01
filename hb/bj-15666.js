@@ -30,6 +30,7 @@ const backTrakin = (k) => {
     }
   }
 };
+
 const ans = () => {
   for (let i = 0; i < arr.length; i++) {
     cur[0] = arr[i];
