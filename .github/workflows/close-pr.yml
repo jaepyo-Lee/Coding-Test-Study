@@ -1,0 +1,32 @@
+name: Merge or Close stale PRs, ISSUEs
+
+on:
+  schedule:
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  close_prs_issues:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Merge and Close stale PRs
+        run: |
+          prs=$(gh pr list --state open --json number --jq '.[].number')
+          for pr in $prs; do
+            if gh pr merge $pr --merge; then
+              echo "PR #$pr merged successfully."
+            else
+              echo "Failed to merge PR #$pr. Closing the PR."
+              gh pr close $pr --comment "Automatically closing stale PR #$pr due to merge failure."
+            fi
+          done
