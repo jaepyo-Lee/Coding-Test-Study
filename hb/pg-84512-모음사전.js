@@ -24,6 +24,8 @@ function solution(word) {
     cur[0] = arr[i];
     bk(1);
   }
+  console.log(ans);
   console.log(ans.length);
   return answer;
 }
+solution("AA");
