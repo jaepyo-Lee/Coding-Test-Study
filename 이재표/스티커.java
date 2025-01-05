@@ -13,6 +13,11 @@ public class Main {
                 sticker[j] = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
             }
             int[][]dp=new int[2][n];
+            if (n == 1) {
+                // 열이 1개인 경우, 최대 점수는 두 스티커 중 큰 값
+                System.out.println(Math.max(sticker[0][0], sticker[1][0]));
+                continue;
+            }
             dp[0][1]=sticker[0][1]+sticker[1][0];
             dp[1][1]=sticker[1][1]+sticker[0][0];
             dp[0][0]=sticker[0][0];
