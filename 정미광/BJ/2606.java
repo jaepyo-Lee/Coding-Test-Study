@@ -1,12 +1,9 @@
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    static int[][] computers;
-    static boolean[] visited;
     static int count = 0;
+    static boolean[] visited;
     public static void main(String[] args) {
         solution();
     }
@@ -15,28 +12,27 @@ public class Main {
 
         int n = sc.nextInt();
         int m = sc.nextInt();
-        computers = new int[n][n];
         visited = new boolean[n];
+        int[][] computers = new int[n][n];
         for (int i = 0; i < m; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            computers[a - 1][b - 1] = 1;
-            computers[b - 1][a - 1] = 1;
+            int x = sc.nextInt() - 1;
+            int y = sc.nextInt() - 1;
+            computers[x][y] = 1;
+            computers[y][x] = 1;
         }
 
         visited[0] = true;
-        bfs(0);
-
+        bfs(0, computers);
         System.out.print(count);
 
         sc.close();
     }
-    static void bfs(int index) {
+    static void bfs(int computer, int[][] computers) {
         for (int i = 0; i < computers.length; i++) {
-            if (!visited[i] && computers[index][i] == 1) {
+            if (!visited[i] && computers[computer][i] == 1) {
                 visited[i] = true;
                 count++;
-                bfs(i);
+                bfs(i, computers);
             }
         }
     }
