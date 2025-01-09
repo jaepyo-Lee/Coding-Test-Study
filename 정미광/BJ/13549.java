@@ -11,38 +11,45 @@ public class Main {
     static void solution() {
         Scanner sc = new Scanner(System.in);
 
-        final int[] dn = {-1, 1};
         int n = sc.nextInt();
         int k = sc.nextInt();
-        int min = 0;
-        boolean[] visited = new boolean[n + k + 1];
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[] {n, 0});
-        visited[n] = true;
 
-        while(!queue.isEmpty()) {
-            int[] current = queue.poll();
-            int current_n = current[0];
-            int time = current[1];
-            if (current_n == k) {
-                if (min == 0 || time < min) {
-                    min = time;
-                }
-            }
-
-            if (current_n * 2 >= 0 && current_n * 2 < visited.length && !visited[current_n * 2]) {
-                visited[current_n * 2] = true;
-                queue.add(new int[] {current_n * 2, time});
-            }
-            for (int i = 0; i < 2; i++) {
-                if (current_n + dn[i] >= 0 && current_n + dn[i] < visited.length && !visited[current_n + dn[i]]) {
-                    visited[current_n + dn[i]] = true;
-                    queue.add(new int[] {current_n + dn[i], time + 1});
-                }
-            }
-        }
-        System.out.print(min);
+        System.out.print(bfs(n, k));
 
         sc.close();
+    }
+
+    static int bfs(int n, int k) {
+        boolean[] visited = new boolean[200001];
+        Queue<int[]> next = new LinkedList<>();
+        next.add(new int[]{n, 0});
+        visited[n] = true;
+        while (!next.isEmpty()) {
+            int current[] = next.poll();
+            int x = current[0];
+            int moved = current[1];
+
+            if (x == k) {
+                return moved;
+            }
+
+            int dx = x * 2;
+            if (dx >= 0 && dx < visited.length && !visited[dx]) {
+                visited[dx] = true;
+                next.add(new int[]{dx, moved});
+            }
+
+            dx = x - 1;
+            if (dx >= 0 && dx < visited.length && !visited[dx]) {
+                visited[dx] = true;
+                next.add(new int[]{dx, moved + 1});
+            }
+            dx = x + 1;
+            if (dx >= 0 && dx < visited.length && !visited[dx]) {
+                visited[dx] = true;
+                next.add(new int[]{dx, moved + 1});
+            }
+        }
+        return 0;
     }
 }
