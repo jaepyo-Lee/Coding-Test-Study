@@ -1,14 +1,14 @@
+#자꾸 틀림...
+
 from collections import deque
 
 n, k = map(int, input().split())
-limit = 100001
-cnt = [0] * limit
-visited = [False] * (limit)
+limit = 10**5
+cnt = [0] * (limit+1)
 
 def bfs(start, target):
     queue = deque()
     queue.append(start)
-    visited[start] = True
 
     while queue:
         x = queue.popleft()
@@ -16,14 +16,13 @@ def bfs(start, target):
         if x == target:
             return cnt[x]
         
-        for nx in (2*x, x+1, x-1):
-            if 0<= nx < limit and visited[nx] == False:
-                visited[nx] = True
+        for nx in (2*x, x-1, x+1):
+            if 0<= nx < limit:
                 if nx == 2 * x:
                     cnt[2*x] = cnt[x]
-                    queue.appendleft(nx)
                 else:
                     cnt[nx] = cnt[x] + 1
-                    queue.append(nx)
+                queue.append(nx)
 
-print(bfs(n, k))
+bfs(n, k)
+print(cnt[k-1]-1)

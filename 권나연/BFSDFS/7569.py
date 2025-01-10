@@ -9,17 +9,14 @@ m, n, h = map(int, input().split())
 graph = [[list(map(int,input().split())) for i in range(n)] for depth in range(h)]
 
 
-def find_ripen():
-    ripen = []
-    for x in range (h):
+def bfs():
+     queue = deque()
+
+     for x in range (h):
         for y in range (n):
             for z in range (m):
                     if graph[x][y][z] == 1:
-                        ripen.append([x, y, z])
-    return ripen
-
-def bfs():
-     queue = deque(find_ripen())
+                        queue.append([x, y, z])
 
      while queue:
           x, y, z = queue.popleft()
@@ -30,9 +27,9 @@ def bfs():
                nz = z + dz[i]
 
                if 0 <= nx < h and 0 <= ny < n and 0 <= nz < m:
-                    if graph[nx][ny][nz] == 1:
-                         queue.append((nx, ny, nz))
+                    if graph[nx][ny][nz] == 0:
                          graph[nx][ny][nz] = graph[x][y][z] + 1
+                         queue.append((nx, ny, nz))
 
 def how_many_days():
     days = 0
