@@ -19,20 +19,20 @@ def bfs():
     while queue: 
         x, y = queue.popleft()
 
-        if (festival_x - x) + (festival_y - y) <= 1000:
+        if abs(festival_x - x) + abs(festival_y - y) <= 1000:
             print("happy")
             return
         for i in range(n):
             if not visited[i]:
                 stop_x, stop_y = convinie[i]
-                if (stop_x - x) + (stop_y - y) <= 1000:
-                    queue.append((stop_x, stop_y))
+                if abs(stop_x - x) + abs(stop_y - y) <= 1000:
+                    queue.append(convinie[i])
                     visited[i] = True
     print("sad")
     return
 
 test = int(input())
-for _ in range(test):
+for m in range(test):
     n = int(input())
     home_x, home_y = map(int, input().split())
     convinie = []
@@ -42,3 +42,4 @@ for _ in range(test):
     festival_x, festival_y = map(int, input().split())
     visited = [False for _ in range(n+1)]
     bfs()
+
