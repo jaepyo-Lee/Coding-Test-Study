@@ -1,3 +1,5 @@
+# 자꾸 시간 초과남!
+
 N = int(input())
 sequence = list(map(int,input().split()))
 D = [1] * N
