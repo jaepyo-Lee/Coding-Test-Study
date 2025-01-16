@@ -5,6 +5,8 @@ const input = require("fs")
   .split("\n")
   .map((e) => e.split(" "));
 
+
+  
 const recur = (og, n) => {
   if (og.length === n.length) {
     if (og === n.join("")) {
@@ -23,7 +25,6 @@ const recur = (og, n) => {
     }
   }
 };
-
 const ans = () => {
   const temp1 = input[0];
   const temp2 = input[1][0].split("");

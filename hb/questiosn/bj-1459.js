@@ -5,7 +5,10 @@ const input = require("fs")
   .split("\n")[0]
   .split(" ")
   .map((e) => Number(e));
+
 const [n, m, s, c] = input;
+// 대각으로 가는 시간의 2배를 해도 
+// 
 const ans = () => {
   const diff = Math.max(n, m) - Math.min(n, m);
   const same = Math.min(n, m);
