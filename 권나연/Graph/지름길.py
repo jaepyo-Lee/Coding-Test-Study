@@ -38,4 +38,3 @@ def dijkstra(start):
 
 
 print(dijkstra(0))
-
